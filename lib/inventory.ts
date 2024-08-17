@@ -1,6 +1,8 @@
+import { unstable_noStore } from "next/cache"
 import prismadb from "./prisma"
 
 export const getInventory = async () => {
+    unstable_noStore()
     const inventory = await prismadb.inventory.findMany()
     if (inventory) {
         return inventory
@@ -10,6 +12,7 @@ export const getInventory = async () => {
 }
 
 export const getInventoryCountBasedOnCategory = async () => {
+    unstable_noStore()
     const data = await prismadb.inventory.groupBy({
         by: ['category'],
         _count: true
@@ -17,11 +20,13 @@ export const getInventoryCountBasedOnCategory = async () => {
     return data
 }
 export const getInventoryCount = async () => {
+    unstable_noStore()
     const count = await prismadb.inventory.count()
     return count
 }
 
 export const getInventoryLogs = async () => {
+    unstable_noStore()
     const logs = await prismadb.inventoryLogs.findMany()
     if (logs) {
         return logs

@@ -1,11 +1,10 @@
 import DashboardTile from '@/components/custom/dashboard-tile'
 import Heading from '@/components/custom/heading'
-import { getInventoryCount, getInventoryCountBasedOnCategory } from '@/lib/inventory'
-import { Home, HomeIcon, User2Icon, WarehouseIcon } from 'lucide-react'
+import { getInventoryCountBasedOnCategory } from '@/lib/inventory'
+import { WarehouseIcon } from 'lucide-react'
 import React from 'react'
 
 async function DashboardPage() {
-    const inventoryCount = await getInventoryCount()
     const inventoryData = await getInventoryCountBasedOnCategory()
 
     return (

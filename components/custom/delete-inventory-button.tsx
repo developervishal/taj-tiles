@@ -11,7 +11,6 @@ function DeleteInventoryButton({ id }: { id: string }) {
     const onDelete = async () => {
         const response = await axios.delete(`/api/inventory/${id}`)
         toast(response.data.message)
-        toast(response.data.message)
         router.refresh()
     }
     return (
