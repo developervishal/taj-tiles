@@ -1,4 +1,5 @@
 import prismadb from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 
@@ -9,6 +10,7 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
                 id: context.params.id
             }
         })
+        revalidatePath("/category")
         return NextResponse.json({
             success: true,
             message: 'Category Deleted'

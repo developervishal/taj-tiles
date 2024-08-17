@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prisma";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 
@@ -35,6 +36,7 @@ export async function POST(req: Request) {
                 action: 'create'
             }
         })
+        revalidatePath("/inventory")
         return NextResponse.json({
             message: 'Successfully added the inventory'
         })

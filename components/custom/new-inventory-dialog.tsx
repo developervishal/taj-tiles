@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { toast } from 'sonner'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { useRouter } from 'next/navigation'
 
 export default function NewInventoryDialog({ categories }: { categories: Category[] }) {
     const [name, setName] = useState('')
@@ -24,6 +25,7 @@ export default function NewInventoryDialog({ categories }: { categories: Categor
     const [loading, setLoading] = useState(false)
     const [category, setCategory] = useState('')
     const [boxNumber, setBoxNumber] = useState('')
+    const router = useRouter()
     const onSubmit = async () => {
         if (!name || !quantity || !category || !boxNumber) {
             return
@@ -36,6 +38,7 @@ export default function NewInventoryDialog({ categories }: { categories: Categor
         }
         setLoading(true)
         const response = await axios.post('/api/inventory', dataObject)
+        router.refresh( )
         setLoading(false)
         toast(response.data.message)
     }

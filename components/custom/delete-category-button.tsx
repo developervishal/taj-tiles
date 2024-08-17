@@ -1,13 +1,17 @@
+"use client"
 import React from 'react'
 import { Button } from '../ui/button'
 import { Trash2Icon } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 function DeleteCategoryButton({ id }: { id: string }) {
+    const router = useRouter()
     const onDelete = async () => {
         const response = await axios.delete(`/api/category/${id}`)
         toast(response.data.message)
+        router.refresh()
     }
     return (
         <Button

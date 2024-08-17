@@ -1,4 +1,5 @@
 import prismadb from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 
@@ -72,6 +73,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
                 message: 'Successfully update the Inventory'
             })
         }
+        revalidatePath("/inventory")
     } catch (err) {
         return new NextResponse("Internal Error", { status: 500 })
     }
@@ -96,6 +98,7 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
                     action: 'delete',
                 }
             })
+            revalidatePath("/inventory")
             return NextResponse.json({
                 success: true,
                 message: 'Inventory Deleted'

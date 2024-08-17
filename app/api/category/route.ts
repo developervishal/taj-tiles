@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prisma"
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
+import { revalidatePath } from "next/cache"
 import { NextResponse } from "next/server"
 
 
@@ -12,6 +13,7 @@ export async function POST(req: Request) {
                 name: name
             }
         })
+        revalidatePath("/category")
         return NextResponse.json({
             success: true,
             message: 'Successfully added the category'

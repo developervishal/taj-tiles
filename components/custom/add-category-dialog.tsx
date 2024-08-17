@@ -8,11 +8,12 @@ import { DialogHeader, DialogFooter, Dialog, DialogTrigger, DialogContent, Dialo
 import { Input } from '../ui/input'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 function AddCategoryDialog() {
     const [name, setName] = useState('')
     const [loading, setLoading] = useState(false)
-
+    const router = useRouter()
     const onSubmit = async () => {
         if (name === '') {
             return
@@ -21,9 +22,11 @@ function AddCategoryDialog() {
         const response = await axios.post('/api/category', { name: name })
         if (response.data.success) {
             toast("Successfully added the category")
+            router.refresh()
         } else {
             toast(response.data.message)
         }
+
         setLoading(false)
     }
     return (
