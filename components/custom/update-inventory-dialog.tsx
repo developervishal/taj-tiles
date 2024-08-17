@@ -23,12 +23,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
+
 
 export default function UpdateInventoryDialog({ row }: { row: any }) {
     const [loading, setLoading] = useState(false)
     const [name, setName] = useState(row.name)
     const [quantity, setQuantity] = useState(0)
     const [action, setAction] = useState('')
+    const router = useRouter()
     const updateInventory = async () => {
 
         if (action === '') {
@@ -42,7 +45,7 @@ export default function UpdateInventoryDialog({ row }: { row: any }) {
         })
         setLoading(false)
         toast(response.data.message)
-
+        router.refresh()
     }
     return (
         <Dialog>
